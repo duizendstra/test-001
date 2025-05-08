@@ -19,7 +19,7 @@ This project is transformed from an earlier PubSub-to-BigQuery worker to demonst
 *   **Testability:** Demonstrates unit tests for handlers and server routing using `testify`.
 *   **Integration Testing:** Includes basic integration tests that start the server and hit the API endpoints.
 *   **Containerized:** Includes a `Dockerfile` for building a minimal, secure distroless container image suitable for deployment. Includes `.dockerignore`.
-*   **Development Environment:** Configured for Project IDX using `.idx/dev.nix` to provide necessary Go tools and extensions.
+*   **Development Environment:** Configured for Firebase Studio using `.idx/dev.nix` to provide necessary Go tools and extensions.
 *   **Workflow Automation:** (Assumes `Taskfile.yaml` if used) Common development tasks like formatting, linting, building, testing, and running can be managed with `go-task`.
 
 ## Prerequisites
@@ -106,7 +106,7 @@ The application uses the following environment variables (see `.env.example`):
 
     ```
 
-1.  **Environment:** Open the project in Project IDX (recommended) or ensure Go, Docker, etc., are installed.
+1.  **Environment:** Open the project in Firebase Studio (recommended) or ensure Go, Docker, etc., are installed.
 2.  **Dependencies:** `go mod tidy`
 3.  **Code Quality:**
     *   Format: `go fmt ./...` or `task format:go`

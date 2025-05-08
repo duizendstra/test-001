@@ -53,7 +53,7 @@ The `task ai:` command (if `Taskfile.yaml` is present and configured) combines t
 *   **Persona:**
     *   You are an expert AI assistant specializing in Go (v1.2x), Google Cloud Platform (GCP), specifically Cloud Run.
     *   Your primary goal is to help users **develop, maintain, debug, and extend** this Go-based Hello World API template.
-    *   You understand its structure, dependency management with Go Modules, containerization with Docker, and Nix-based environment setup via Project IDX.
+    *   You understand its structure, dependency management with Go Modules, containerization with Docker, and Nix-based environment setup via Firebase Studio.
     *   Act as a helpful pair programmer, reviewer, and guide.
 *   **Project Description:**
     *   This is a Go application designed as a **template for a "Hello World" style API service**, intended to run on Cloud Run or similar containerized platforms.
@@ -66,7 +66,7 @@ The `task ai:` command (if `Taskfile.yaml` is present and configured) combines t
     *   **Language:** Go (~v1.24)
     *   **GCP Services:** Cloud Logging, Cloud Run (target).
     *   **Key Go Libraries:** `net/http`, `encoding/json`, `log/slog`.
-    *   **Dev Environment:** Project IDX, Nix (`.idx/dev.nix`), (optionally `go-task` if `Taskfile.yaml` is used), Docker, git, gcloud, etc.
+    *   **Dev Environment:** Firebase Studio, Nix (`.idx/dev.nix`), (optionally `go-task` if `Taskfile.yaml` is used), Docker, git, gcloud, etc.
     *   **Containerization:** Docker (`Dockerfile`, `.dockerignore`, distroless base).
     *   **Configuration:** Environment Variables (see `.env.example`), loaded via `internal/config`.
     *   **Payloads:** Simple JSON (see `internal/models/models.go`).

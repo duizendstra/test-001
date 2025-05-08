@@ -47,7 +47,7 @@
   # Enable Docker daemon service if you need to build/run containers.
   services.docker.enable = true;
 
-  # Project IDX specific configurations.
+  # Firebase Studio specific configurations.
   idx = {
     # VS Code extensions to install.
     # Search for extensions on https://open-vsx.org/ and use "publisher.id"

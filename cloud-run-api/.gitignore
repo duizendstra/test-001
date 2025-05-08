@@ -59,7 +59,3 @@ crash.*.log
 ### Project Specific ###
 # Archived code directory
 contextvibes*
-.vscode/launch.json
-.vscode/settings.json
-
-/.vscode/
