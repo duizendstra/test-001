@@ -1,5 +1,5 @@
 # Root idx-template.nix for multi-variant Go templates
-{ pkgs, environment ? "cloud-run-api", ... }: { # CHANGED default
+{ pkgs, environment ? "cloud-run-api", ... }: {
   packages = [ pkgs.bash ];
 
   bootstrap = ''

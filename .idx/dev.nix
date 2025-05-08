@@ -1,4 +1,4 @@
-# cloud-run-api/.idx/dev.nix
+# .idx/dev.nix
 # Nix configuration for the Go Cloud Run API Starter template.
 # This file defines the development environment for workspaces created from this template.
 # To learn more about how to use Nix to configure your environment
@@ -66,65 +66,26 @@
 
     # Workspace lifecycle hooks.
     workspace = {
-      # Runs when a workspace is first created with this file.
+      # Runs when a workspace is first created with this  file.
       onCreate = {
         # Open these files by default when the workspace is created.
         # The last file in the list will be focused.
         default.openFiles = [
           "README.md"
-          ".env" # Show the user the environment variables they configured (if .env is created by another hook)
-          ".env.example" # Or open the example if .env is not auto-created
+          ".env"                     # Show the user the environment variables they configured
           "cmd/main.go"
           "internal/config/config.go"
           "internal/api/handlers.go" # Key handler logic
         ];
 
-        # Install Go module dependencies and format/tidy code.
+        # Example: Install Go module dependencies and format/tidy code.
         installAndTidy = ''
           echo "Running go mod download and go mod tidy..."
           go mod download
           go mod tidy
           echo "Running go fmt..."
           go fmt ./...
-          echo "Initial Go project setup commands complete."
-        '';
-
-        # Optional: Script to copy .env.example to .env if .env doesn't exist
-        setupEnvFile = ''
-          if [ ! -f ".env" ] && [ -f ".env.example" ]; then
-            echo "Copying .env.example to .env..."
-            cp .env.example .env
-            echo "INFO: .env file created. Please review and update it with your specific values (especially GOOGLE_CLOUD_PROJECT)."
-          fi
-        '';
-        
-        # Script to install contextvibes CLI into ./bin
-        installContextVibesCli = ''
-          echo "Attempting to install contextvibes CLI into ./bin ..."
-
-          if ! command -v go &> /dev/null
-          then
-              echo "Go command could not be found, skipping contextvibes installation."
-              # Exit gracefully or 'exit 1' if critical
-              # For now, we'll assume Go is present due to pkgs.go
-          else
-            LOCAL_BIN_DIR="$(pwd)/bin"
-            mkdir -p "$LOCAL_BIN_DIR"
-            echo "Target directory for contextvibes: $LOCAL_BIN_DIR"
-
-            export GOBIN="$LOCAL_BIN_DIR"
-            echo "Running: GOBIN=$GOBIN go install github.com/contextvibes/cli/cmd/contextvibes@latest"
-
-            if go install github.com/contextvibes/cli/cmd/contextvibes@latest; then
-              echo "Successfully installed contextvibes to $LOCAL_BIN_DIR/contextvibes"
-              echo "You can run it using: $LOCAL_BIN_DIR/contextvibes"
-              echo "Consider adding '$LOCAL_BIN_DIR' to your PATH for convenience (see README)."
-              chmod +x "$LOCAL_BIN_DIR/contextvibes" || echo "Note: chmod +x on contextvibes failed."
-            else
-              echo "ERROR: Failed to install contextvibes."
-            fi
-            unset GOBIN
-          fi
+          echo "Initial setup commands complete. You can now run the application."
         '';
       };
 
@@ -138,7 +99,7 @@
 
     # Configure web previews if your application serves HTTP.
     previews = {
-      enable = true; 
+      enable = false; # Enable previews for this web service
     };
 
     # (Optional) Default icon for workspaces created from this template.
