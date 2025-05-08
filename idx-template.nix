@@ -1,86 +1,65 @@
 # idx-template.nix
-# Parameters from idx-template.json are passed here.
-# We provide default values matching those in idx-template.json just in case.
 { pkgs,
-  googleCloudProject, # Required, so no default here
+  googleCloudProject,
   apiServiceName ? "go-hello-world-api",
   logLevel ? "INFO",
   port ? "8080",
   ...
 }: {
-  # Packages needed for the bootstrap script itself (e.g., git, jq).
-  # For simple file copying and echo, default pkgs.bash is usually enough.
   packages = [
-    pkgs.bash # Ensures bash is available
+    pkgs.bash
   ];
-
-  # The core bootstrap script.
-  # This script is executed in a temporary directory containing a checkout
-  # of your template repository.
-  # "" is the path to the new workspace's root directory.
   bootstrap = ''
-    set -e # Exit immediately if a command exits with a non-zero status.
-    echo "🚀 Starting Go Cloud Run API template bootstrapping..."
+    set -ex # Print commands and exit on error
 
-    # 1. Copy all files from the template repository's current directory to 
-    #    The expression ${./.} refers to the path of the directory containing this idx-template.nix file.
-    echo "Copying project files from ${./.} to ..."
-    # Using rsync is robust for copying, excluding .git from the template repo itself.
-    # Or use 'cp -rT ${./.} ""' but manage exclusions manually.
-    # For simplicity with cp and specific exclusions:
-    mkdir -p ""
-    shopt -s dotglob # Ensure dotfiles (like .gitignore, .vscode) are copied
-    # List files to copy, excluding template-specific ones and .git from template repo
-    # This is a bit manual; a common pattern is to copy everything then remove.
-    for item in $(ls -A ${./.}); do
-      if [[ "$item" != ".git" && "$item" != "idx-template.json" && "$item" != "idx-template.nix" && "$item" != "README-TEMPLATE.md" ]]; then
-        cp -R "${./.}/$item" "/"
+    echo "--- TEMPLATE DEBUG START ---"
+    echo "Attempting to diagnose \$out variable."
+    echo "Value of out: [$out]"
+    echo "Value of WS_NAME (Workspace Name): [$WS_NAME]"
+    echo "Current working directory: $(pwd)"
+    echo "Listing environment variables (env):"
+    env | sort
+    echo "--- TEMPLATE DEBUG END ---"
+
+    echo "🚀 Starting Go Cloud Run API template bootstrapping (after debug)..."
+
+    # Defensive check: if $out is empty, exit with an error message
+    if [ -z "$out" ]; then
+      echo "CRITICAL ERROR: The \$out variable is empty or not set. Cannot proceed."
+      echo "This indicates an issue with the templating environment."
+      exit 1
+    fi
+
+    echo "Copying project files from \${./.} to [$out] (verified \$out not empty)..."
+    mkdir -p "$out"
+    # Rest of your script...
+    shopt -s dotglob
+    for item in \$(ls -A \${./.}); do
+      if [[ "\$item" != ".git" && "\$item" != "idx-template.json" && "\$item" != "idx-template.nix" && "\$item" != "README-TEMPLATE.md" ]]; then
+        cp -R "\${./.}/\$item" "$out/"
       fi
     done
     shopt -u dotglob
 
-    # Ensure the new workspace directory is writable
-    chmod -R +w ""
+    chmod -R +w "$out"
     echo "Project files copied."
 
-    # 2. Create the .env file in the new workspace based on user parameters.
-    #    Your application (internal/config/config.go) reads these.
-    echo "Creating .env file with user-provided parameters in /.env..."
-    cat <<ENV_EOF > "/.env"
-GOOGLE_CLOUD_PROJECT=${googleCloudProject}
-API_SERVICE_NAME=${apiServiceName}
-LOG_LEVEL=${logLevel}
-PORT=${port}
+    echo "Creating .env file with user-provided parameters in $out/.env..."
+    cat <<ENV_EOF > "$out/.env"
+GOOGLE_CLOUD_PROJECT=\${googleCloudProject}
+API_SERVICE_NAME=\${apiServiceName}
+LOG_LEVEL=\${logLevel}
+PORT=\${port}
 ENV_EOF
     echo ".env file created."
 
-    # 3. (Optional) Modify .gitignore if needed for generated files, though your current one is good.
-    #    Example: echo ".another-generated-file" >> "/.gitignore"
-
-    # 4. (Crucial) Ensure the .idx/dev.nix from your template is in /.idx/dev.nix
-    #    This was handled by the copy step above if .idx/dev.nix exists in your template repo.
-    #    If you needed to *generate* dev.nix based on parameters, you'd do it here.
-    #    For your project, copying the existing one is correct.
-    if [ -f "/.idx/dev.nix" ]; then
+    if [ -f "$out/.idx/dev.nix" ]; then
       echo ".idx/dev.nix found in the new workspace."
     else
-      echo "⚠️ WARNING: .idx/dev.nix was not found in the copied files. This is critical for the workspace environment."
-      # You might want to fail here or provide a default one.
+      echo "⚠️ WARNING: .idx/dev.nix was not found in the copied files."
     fi
 
-    # 5. (Optional) Initialize a new Git repository in the workspace for the user.
-    # if type -P git; then
-    #   echo "Initializing a new Git repository in ..."
-    #   cd ""
-    #   git init
-    #   git add .
-    #   git commit -m "Initial project setup from Firebase Studio template"
-    #   cd -
-    # else
-    #   echo "Git not found in bootstrap environment, skipping git init for user."
-    # fi
-
     echo "🎉 Go Cloud Run API template bootstrapping complete!"
-    echo "Workspace ID: $WS_NAME" # WS_NAME is an available environment variable
+    echo "Workspace ID: \$WS_NAME"
   '';
 }
