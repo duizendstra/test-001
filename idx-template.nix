@@ -5,7 +5,7 @@
   bootstrap = ''
     set -ex
 
-    echo "🚀 Bootstrapping selected project type: ${environment}"
+    echo "Bootstrapping selected project type: ${environment}"
     echo "Source directory to copy: ${./.}/${environment}"
     echo "Target workspace name (from env): $WS_NAME"
     echo "Final output directory (from Nix): $out"
@@ -19,7 +19,7 @@
     chmod -R +w "$WS_NAME"
     mv "$WS_NAME" "$out"
 
-    echo "🎉 Bootstrapping complete for project type: ${environment}."
+    echo "Bootstrapping complete for project type: ${environment}."
     echo "Workspace content is now in: $out"
   '';
 }
