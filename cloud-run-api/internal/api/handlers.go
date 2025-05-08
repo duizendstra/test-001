@@ -12,8 +12,8 @@ import (
 
 	// "cloud.google.com/go/bigquery" // No longer needed
 
-	"github.com/duizendstra/go-cloud-run-api/internal/config"
-	"github.com/duizendstra/go-cloud-run-api/internal/models" // Keep for our new models
+	"your-module-name/internal/config"
+	"your-module-name/internal/models" // Keep for our new models
 )
 
 // Handler holds dependencies required by the HTTP handlers.

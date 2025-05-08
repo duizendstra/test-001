@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	// Old import: "github.com/duizendstra/go-cloud-run-api/internal/cloudlogging"
+	// Old import: "your-module-name/internal/cloudlogging"
 	"github.com/duizendstra/dui-go/logging/cloudlogging" // New import
 )
 

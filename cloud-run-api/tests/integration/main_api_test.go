@@ -17,11 +17,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/duizendstra/go-cloud-run-api/internal/api"
-	// Old import: "github.com/duizendstra/go-cloud-run-api/internal/cloudlogging"
+	"your-module-name/internal/api"
+	// Old import: "your-module-name/internal/cloudlogging"
 	"github.com/duizendstra/dui-go/logging/cloudlogging" // New import
-	"github.com/duizendstra/go-cloud-run-api/internal/config"
-	"github.com/duizendstra/go-cloud-run-api/internal/models"
+	"your-module-name/internal/config"
+	"your-module-name/internal/models"
 )
 
 var (

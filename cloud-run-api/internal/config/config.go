@@ -18,7 +18,7 @@ type Config struct {
 	// unless other parts of *your* application code need it directly.
 	// If only the logger needs it, we might not need it here.
 	// Let's assume for now your app *might* need it elsewhere, or for clarity.
-	ProjectID   string `env:"GOOGLE_CLOUD_PROJECT" envRequired:"true"`
+	ProjectID string `env:"GOOGLE_CLOUD_PROJECT" envRequired:"true"`
 }
 
 // Load configuration from environment variables using the dui-go/env library.

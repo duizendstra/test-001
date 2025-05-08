@@ -13,8 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	// "github.com/stretchr/testify/mock" // Removed
 
-	"github.com/duizendstra/go-cloud-run-api/internal/config"
-	"github.com/duizendstra/go-cloud-run-api/internal/models"
+	"your-module-name/internal/config"
+	"your-module-name/internal/models"
 )
 
 func TestSetupRoutes(t *testing.T) {

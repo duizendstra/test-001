@@ -1,4 +1,4 @@
-module github.com/duizendstra/go-cloud-run-api
+module your-module-name
 
 go 1.24.3
 

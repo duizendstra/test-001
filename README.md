@@ -19,7 +19,7 @@
   </picture>
 </a>
 
-This repository provides a collection of Go application templates designed to accelerate development using [Google's Firebase Studio](https://idx.dev/). Each template offers a well-structured starting point for different types of Go projects, complete with Nix environments for reproducible setups in IDX.
+This repository provides a collection of Go application templates designed to accelerate development using [Google's Firebase Studio](https://idx.dev/). Each template offers a well-structured starting point for different types of Go projects, complete with Nix environments for reproducible setups in Firebase Studio.
 
 ## Vision
 
@@ -30,7 +30,7 @@ To provide a comprehensive set of high-quality, production-ready Go starter temp
 Currently, the following templates are available:
 
 1.  **Cloud Run API Server (Hello World)**
-    *   **Description:** A simple "Hello World" style HTTP API server built in Go, ready for deployment on Google Cloud Run or other containerized platforms. It features structured logging, configuration management, basic CRUD-like examples (GET/POST), and a ready-to-use Dockerfile.
+    *   **Description:** A simple "Hello World" style HTTP API server built in Go, ready for deployment on Google Cloud Run or other containerized platforms. It features structured logging, configuration management, basic CRUD-like examples (GET/POST), and a ready-to-use Dockerfile. The module path is initialized as `your-module-name` for easy customization.
     *   **Location:** [`./cloud-run-api/`](./cloud-run-api/)
     *   **Quick Start:** See the [Cloud Run API README](./cloud-run-api/README.md) for detailed instructions.
 
@@ -42,10 +42,10 @@ These templates are designed to be used with Firebase Studio's "Create a new wor
 
 1.  In Firebase Studio, choose to create a new workspace.
 2.  Select the option to use a custom template (or "Import a repository").
-3.  Provide the URL to this GitHub repository: `https://github.com/[YOUR GITHUB USERNAME]/[YOUR REPO NAME].git`
-4.  IDX should detect the `idx-template.json` and `idx-template.nix` files and guide you through selecting one of the available templates defined in `idx-template.json`.
+3.  Provide the URL to this GitHub repository: `https://github.com/contextvibes/go-cloud-run-api-template.git`
+4.  Firebase Studio should detect the `idx-template.json` and `idx-template.nix` files and guide you through selecting one of the available templates defined in `idx-template.json`.
 
-The root `idx-template.nix` handles the bootstrapping process, copying the selected template's files (e.g., everything from the `cloud-run-api` directory) into your new IDX workspace. The Nix environment specified within the chosen template's `.idx/dev.nix` file (e.g., `cloud-run-api/.idx/dev.nix`) will then be used to configure your workspace.
+The root `idx-template.nix` handles the bootstrapping process, copying the selected template's files (e.g., everything from the `cloud-run-api` directory) into your new Firebase Studio workspace. The Nix environment specified within the chosen template's `.idx/dev.nix` file (e.g., `cloud-run-api/.idx/dev.nix`) will then be used to configure your workspace.
 
 ## Contributing
 
