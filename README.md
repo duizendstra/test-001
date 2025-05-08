@@ -2,6 +2,22 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 <!-- Add other badges as relevant, e.g., build status, PRs welcome -->
+[![Go Report Card](https://goreportcard.com/badge/github.com/contextvibes/go-cloud-run-api-template)](https://goreportcard.com/report/github.com/contextvibes/go-cloud-run-api-template)
+
+<a href="https://studio.firebase.google.com/new?template=https%3A%2F%2Fgithub.com%2Fcontextvibes%2Fgo-cloud-run-api-template">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://cdn.firebasestudio.dev/btn/open_dark_32.svg">
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://cdn.firebasestudio.dev/btn/open_light_32.svg">
+    <img
+      height="32"
+      alt="Open in Firebase Studio"
+      src="https://cdn.firebasestudio.dev/btn/open_blue_32.svg">
+  </picture>
+</a>
 
 This repository provides a collection of Go application templates designed to accelerate development using [Google's Firebase Studio](https://idx.dev/). Each template offers a well-structured starting point for different types of Go projects, complete with Nix environments for reproducible setups in IDX.
 
