@@ -99,23 +99,7 @@
 
     # Configure web previews if your application serves HTTP.
     previews = {
-      enable = true; # Enable previews for this web service
-      previews = [
-        {
-          # Label for the preview tab in IDX
-          id = "api";
-          label = "Go API";
-          # Command to start your Go application
-          # This assumes the .env file (created by idx-template.nix) is present
-          # and GOOGLE_CLOUD_PROJECT is set within it.
-          # The PORT from .env will be used by your app. IDX handles mapping.
-          startCommand = "go run cmd/main.go";
-          # Optional: Root directory for the preview server, if not project root
-          # currentRoot = "./public";
-          # Optional: Port your application listens on internally (IDX maps this)
-          # manager.http.port = 8080; # Your app reads PORT from .env, IDX should auto-detect or you can specify
-        }
-      ];
+      enable = false; # Enable previews for this web service
     };
 
     # (Optional) Default icon for workspaces created from this template.
