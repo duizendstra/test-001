@@ -1,0 +1,29 @@
+
+# ADDED FOR TEMPLATE: Default open files and onCreate hook
+# MANUALLY INTEGRATE THIS BLOCK CORRECTLY INTO YOUR EXISTING idx = { ... }; STRUCTURE
+# This is a simplified append; proper integration is key.
+# Ensure 'idx = {' exists and this is merged within it.
+
+    # workspace lifecycle hooks (if not already defined in this structure)
+    workspace = pkgs.lib.mkIf (! ($idx ? workspace)) {
+      onCreate = {
+        default.openFiles = [
+          "README.md"
+          "cmd/main.go"
+          "internal/config/config.go" # Good to show where config comes from
+        ];
+        # Example: run go mod download on create
+        # installDeps = "go mod download && go mod tidy";
+      };
+    } // (if $idx ? workspace then { # Merge if workspace block exists
+      onCreate = pkgs.lib.mkIf (!($idx.workspace ? onCreate)) {} // (if $idx.workspace ? onCreate then {
+        # Merge default.openFiles if onCreate exists
+        default.openFiles = pkgs.lib.mkIf (!($idx.workspace.onCreate ? default && $idx.workspace.onCreate.default ? openFiles)) [
+          "README.md"
+          "cmd/main.go"
+          "internal/config/config.go"
+        ] ++ (if ($idx.workspace.onCreate ? default && $idx.workspace.onCreate.default ? openFiles) then $idx.workspace.onCreate.default.openFiles else []);
+        # Keep other onCreate items
+      } else {}) // $idx.workspace.onCreate;
+    } else {});
+

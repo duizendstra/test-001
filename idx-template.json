@@ -1,0 +1,46 @@
+{
+  "name": "Go Cloud Run API Starter",
+  "description": "A template for a Go 'Hello World' API, ready for Cloud Run. Features configurable GCP Project ID, service name, and log level.",
+  "icon": "https://www.gstatic.com/images/branding/productlogos/idx/v1/idx-logo-lockup-color-192px.svg",
+  "params": [
+    {
+      "id": "googleCloudProject",
+      "name": "Google Cloud Project ID",
+      "type": "text",
+      "description": "Your Google Cloud Project ID (e.g., my-gcp-project). This is required for GCP logging and deployment.",
+      "required": true
+    },
+    {
+      "id": "apiServiceName",
+      "name": "API Service Name",
+      "type": "text",
+      "description": "The name for your API service (e.g., my-hello-api). Used in logs and responses.",
+      "default": "go-hello-world-api",
+      "required": false
+    },
+    {
+      "id": "logLevel",
+      "name": "Log Level",
+      "type": "enum",
+      "description": "Minimum logging level for the application.",
+      "default": "INFO",
+      "options": {
+        "DEBUG": "DEBUG",
+        "INFO": "INFO",
+        "NOTICE": "NOTICE",
+        "WARN": "WARNING",
+        "ERROR": "ERROR",
+        "CRITICAL": "CRITICAL"
+      },
+      "required": false
+    },
+    {
+      "id": "port",
+      "name": "Application Port",
+      "type": "text",
+      "description": "Port the application will listen on internally (Cloud Run handles external mapping).",
+      "default": "8080",
+      "required": false
+    }
+  ]
+}
