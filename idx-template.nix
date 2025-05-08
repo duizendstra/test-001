@@ -12,31 +12,29 @@
   bootstrap = ''
     set -ex # Print commands and exit on error
 
+    # --- DEBUG SECTION (can be removed once stable) ---
     echo "--- TEMPLATE DEBUG START ---"
-    echo "Attempting to diagnose \$out variable."
     echo "Value of out: [$out]"
     echo "Value of WS_NAME (Workspace Name): [$WS_NAME]"
-    echo "Current working directory: $(pwd)"
-    echo "Listing environment variables (env):"
-    env | sort
     echo "--- TEMPLATE DEBUG END ---"
-
-    echo "🚀 Starting Go Cloud Run API template bootstrapping (after debug)..."
+    # --- END DEBUG SECTION ---
 
     # Defensive check: if $out is empty, exit with an error message
     if [ -z "$out" ]; then
       echo "CRITICAL ERROR: The \$out variable is empty or not set. Cannot proceed."
-      echo "This indicates an issue with the templating environment."
       exit 1
     fi
 
-    echo "Copying project files from \${./.} to [$out] (verified \$out not empty)..."
+    echo "🚀 Starting Go Cloud Run API template bootstrapping..."
+    echo "Copying project files from \${./.} to [$out]..." # Note: ${./.} is Nix interpolation
     mkdir -p "$out"
-    # Rest of your script...
+
     shopt -s dotglob
-    for item in \$(ls -A \${./.}); do
-      if [[ "\$item" != ".git" && "\$item" != "idx-template.json" && "\$item" != "idx-template.nix" && "\$item" != "README-TEMPLATE.md" ]]; then
-        cp -R "\${./.}/\$item" "$out/"
+    # CORRECTED COMMAND SUBSTITUTION: Use $(...) directly
+    for item in $(ls -A "${./.}"); do # Using Nix interpolation for the source path
+      if [[ "$item" != ".git" && "$item" != "idx-template.json" && "$item" != "idx-template.nix" && "$item" != "README-TEMPLATE.md" ]]; then
+        # Ensure the source path is correctly interpolated by Nix
+        cp -R "${./.}/$item" "$out/"
       fi
     done
     shopt -u dotglob
@@ -45,6 +43,7 @@
     echo "Project files copied."
 
     echo "Creating .env file with user-provided parameters in $out/.env..."
+    # Nix interpolation for variables passed to the template function
     cat <<ENV_EOF > "$out/.env"
 GOOGLE_CLOUD_PROJECT=\${googleCloudProject}
 API_SERVICE_NAME=\${apiServiceName}
@@ -60,6 +59,6 @@ ENV_EOF
     fi
 
     echo "🎉 Go Cloud Run API template bootstrapping complete!"
-    echo "Workspace ID: \$WS_NAME"
+    echo "Workspace ID: \$WS_NAME" # Bash variable, not Nix
   '';
 }
